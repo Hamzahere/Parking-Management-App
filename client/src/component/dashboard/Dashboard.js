@@ -2,12 +2,27 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getParkingOne } from '../../actions/parkingone';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
+const useStyles = makeStyles(theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200
+  }
+}));
 
 const Dashboard = ({ getParkingOne, parkingarea }) => {
   useEffect(() => {
     getParkingOne();
   }, []);
 
+  const classes = useStyles();
   console.log(parkingarea);
 
   const parkingOneAreas = parkingarea.map(parking => (
@@ -40,6 +55,18 @@ const Dashboard = ({ getParkingOne, parkingarea }) => {
         </thead>
       </table>
       <div>AAAA</div>
+      <form className={classes.container} noValidate>
+        <TextField
+          id='date'
+          label='Birthday'
+          type='date'
+          defaultValue='2017-05-24'
+          className={classes.textField}
+          InputLabelProps={{
+            shrink: true
+          }}
+        />
+      </form>
     </div>
   );
 };
