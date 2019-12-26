@@ -13,9 +13,10 @@ const User = require('../../models/Users');
 //@access private
 
 router.get('/viewParkingAreaOne', auth, async (req, res) => {
+  console.log('aaaaaaaaaaaaaaaa');
   try {
-    const parkingAreaOneAvailable = await ParkingAreaOne.findOne({
-      booking: false
+    const parkingAreaOneAvailable = await ParkingAreaOne.find({
+      booking: 'false'
     });
 
     if (!parkingAreaOneAvailable) {
@@ -37,7 +38,7 @@ router.get('/viewParkingAreaOne', auth, async (req, res) => {
 router.get('/viewParkingAreaTwo', auth, async (req, res) => {
   try {
     const parkingAreaTwoAvailable = await ParkingAreaTwo.findOne({
-      booking: false
+      booking: 'false'
     });
 
     if (!parkingAreaTwoAvailable) {
@@ -55,7 +56,7 @@ router.get('/viewParkingAreaTwo', auth, async (req, res) => {
 router.get('/viewParkingAreaThree', auth, async (req, res) => {
   try {
     const parkingAreaThreeAvailable = await ParkingAreaThree.findOne({
-      booking: false
+      booking: 'false'
     });
 
     if (!parkingAreaThreeAvailable) {
@@ -261,6 +262,26 @@ router.delete('/delete', auth, async (req, res) => {
     await ParkingAreaOne.findOneAndRemove({ user: req.user.id });
 
     res.json({ msg: 'Your Reservations removed from our system' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+//@route GET api/ParkingArea/viewBookingOne
+//@desc  checking of parking area one slot by the user
+//@access private
+
+router.get('/viewBookingOne', auth, async (req, res) => {
+  try {
+    const bookingexist = await ParkingAreaOne.find({ user: req.user.id });
+
+    if (!bookingexist) {
+      return res
+        .status(400)
+        .json({ msg: 'There is no parking slot available' });
+    }
+    res.json(bookingexist);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
