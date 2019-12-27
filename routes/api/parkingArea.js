@@ -225,7 +225,7 @@ router.post('/BookAreaOne', auth, async (req, res) => {
       booking: 'false'
     });
 
-    const { booking, bookingDetail } = req.body;
+    const { booking, bookingDetail, id } = req.body;
 
     const parkingslot = {};
     parkingslot.user = req.user.id;
@@ -233,15 +233,15 @@ router.post('/BookAreaOne', auth, async (req, res) => {
     parkingslot.bookingDetail = bookingDetail;
 
     if (parkingAreaOneAvailable) {
-      parkingAreaOneAvailable = await ParkingAreaOne.findOneAndUpdate(
+      let parkingAreaOneAvailableo = await ParkingAreaOne.findOneAndUpdate(
         {
-          booking: 'false'
+          _id: id
         },
         { $set: parkingslot },
         { new: 'true' }
       );
 
-      res.json(parkingAreaOneAvailable);
+      res.json(parkingAreaOneAvailableo);
     } else {
       return res
         .status(400)

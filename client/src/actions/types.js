@@ -9,3 +9,5 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const GET_PARKING = 'GET_PARKING';
 export const CLEAR_PARKING = 'CLEAR_PARKING';
+export const UNABLE_TO_BOOK = 'UNABLE_TO_BOOK';
+export const BOOK_PARKING = 'BOOK_PARKING';

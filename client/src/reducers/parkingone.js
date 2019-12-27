@@ -1,7 +1,13 @@
-import { GET_PARKING, CLEAR_PARKING } from '../actions/types';
+import {
+  GET_PARKING,
+  CLEAR_PARKING,
+  BOOK_PARKING,
+  UNABLE_TO_BOOK
+} from '../actions/types';
 
 const initialState = {
-  parkingOne: []
+  parkingOne: [],
+  bookedSlot: ''
 };
 
 export default function(state = initialState, action) {
@@ -20,10 +26,16 @@ export default function(state = initialState, action) {
         // user: action.payload.user
         parkingOne: payload
       };
-    case CLEAR_PARKING:
+    case BOOK_PARKING:
       return {
         ...state,
-        parkingOne: payload
+        bookedSlot: payload
+      };
+
+    case UNABLE_TO_BOOK:
+      return {
+        ...state,
+        bookedSlot: payload
       };
     default:
       return state;
